@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			a {
+				text-decoration: none;
+				font-size: 12px;
+				color: #999;
+			}
+			
+			.w990 {
+				width: 990px;
+				margin: 0 auto;
+			}
+			
+			.head {
+				height: 73px;
+				padding: 20px 0 0;
+			}
+			
+			.logo {
+				float: left;
+				height: 63px;
+				padding-top: 10px;
+				background: url("https://images.s.cn/images/css/newlogo.png") no-repeat 0 10px;
+				width: 427px;
+			}
+			
+			.c999 {
+				width: 790px;
+				height: 30px;
+				margin: 0 100px;
+				padding-right: 10px;
+				line-height: 30px;
+				text-align: right;
+			}
+			
+			.zhuce {
+				height: 440px;
+				margin: 0 105px;
+			}
+			
+			.yhzc {
+				width: 758px;
+				margin: 0 auto;
+				font-size: 16px;
+				font-family: microsoft yahei;
+				color: #888;
+				background: #f8f8f8;
+				padding: 4px 10px;
+				border-bottom: 1px solid #efefef;
+				text-shadow: 1px 1px #fff;
+				font-weight: 700;
+			}
+			
+			.form {
+				width: 426px;
+				height: 288px;
+				padding: 40px 0 80px 80px;
+			}
+			
+			form {
+				padding: 20px;
+			}
+			
+			label {
+				width: 100px;
+				display: inline-block;
+				font-size: 14px;
+				color: #333;
+			}
+			
+			input {
+				width: 220px;
+				height: 22px;
+				padding: 3px 5px;
+			}
+			
+			#checkbox {
+				height: 13px;
+				width: 13px;
+				margin: 5px;
+			}
+			
+			span {
+				font-size: 14px;
+				color: #333;
+			}
+			
+			form {
+				border-right: 1px dashed #ccc;
+			}
+			
+			#zhuce {
+				width: 77px;
+				height: 36px;
+				padding: 1px 6px;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+				background:linear-gradient(to bottom,#f14908,#a33408);
+				
+			}
+			#yzm{width: 80px;}
+		</style>
+	</head>
+
+	<body>
+		<div class="w990">
+			<div class="head">
+				<span class="logo"></span>
+			</div>
+			<div class="c999">
+				<a href="##" id="shouye">返回注册</a>
+			</div>
+			<div class="zhuce">
+				<div class="yhzc">
+					名鞋库用户登录
+				</div>
+				<div class="form">
+					<form method="post" action="../php/login.php">
+						<label for="uname">用户名：</label><input type="text" name="uname" id="uname" /><br /><br />
+						<label for="upwd">密码：</label><input type="password" name="upwd" id="upwd" /><br /><br />
+						<label></label><input type="submit" value="登录" id="zhuce">
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script>
+	shouye.onclick=function(){
+		location.href="register.html"
+	}
+</script>

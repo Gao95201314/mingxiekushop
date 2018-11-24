@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="../css/base.css">
+		<link rel="stylesheet" href="../css/detail.css">
+
+	</head>
+
+	<body>
+		<div id="ming">
+			<div class="header">
+				<div class="header-top">
+					<div class="contanier">
+						<ul>
+							<li>我的名鞋库</li>
+							<li class="list1"><s></s><i></i>手机名鞋库</li>
+							<li>收藏名鞋库</li>
+							<li class="list2"><s></s><i></i>名鞋库客服</li>
+							<li class="list3"><s></s><i></i>400 116 2228</li>
+						</ul>
+						<div id="dengru">
+							<a href="login.html">欢迎登录名鞋库</a>
+							<a href="register.html">免费注册</a>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom">
+					<div class="contanier">
+						<h1>名鞋库</h1>
+						<div class="header-bottom-middle">
+							<input type="text" placeholder="朗蒂维" style="width: 273px;height: 27px; border: 1px solid #ccc;float: left;">
+							<input type="submit" value="搜索" style="background-color:#444444;width:65px;height: 29px; float: left;color: white;font-size: 14px;line-height: 27px;text-align: center">
+							<ul>
+								<li>热搜：</li>
+								<li>耐克</li>
+								<li>阿迪</li>
+								<li>新品</li>
+								<li>帆布鞋</li>
+								<li>跑步鞋</li>
+								<li>篮球鞋</li>
+								<li>外套</li>
+							</ul>
+						</div>
+						<a class="header-bottom-right" href="#" id="cartBtn">
+							<span id="cartGoodsNum">0</span>
+						</a>
+
+					</div>
+				</div>
+			</div>
+			<div class="nav">
+				<div class="contanier">
+					<ul class="nav1">
+						<li class="first"><a href="#">所有商品分类</a>
+						</li>
+						<li><a href="#" id="shouye">首页</a></li>
+						<li><a href="#">休闲运动</a></li>
+						<li><a href="#">跑步</a></li>
+						<li><a href="#">篮球</a></li>
+						<li><a href="#">足球</a></li>
+						<li><a href="#">户外</a></li>
+						<li><a href="#">配件</a></li>
+						<li><a href="#">男鞋</a></li>
+						<li class="last"><a href="#">童鞋</a></li>
+					</ul>
+					<div class="nav3">
+						<ul>
+							<li><a href="#">运动小白</a></li>
+							<li><a href="#">上新区</a></li>
+							<li><a href="#">即将售罄</a></li>
+							<li><a href="#">逢八必杀</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="main">
+				<div class="contanier" id="mian2">
+					<!--加载-->
+				</div>
+			</div>
+			<div class="middle1">
+				<div class="contanier">
+					<img src="../images/钜惠.jpg" />
+					<img src="../images/退换.jpg" />
+					<img src="../images/虎扑.jpg" />
+				</div>
+			</div>
+			<div class="footer ">
+				<div class="container">
+					<div class="footer-left ">
+						<ul>
+							<li class="first1 "><s>客服热线</s>(免费长途)</li>
+							<li class="first2 ">400 116 2228</li>
+							<li class="first3 ">客服时间：9:00-24:00</li>
+							<li class="first4 ">周末/假日：10:00-24:00</li>
+							<img src="../images/二维码_03.png " alt=" ">
+						</ul>
+					</div>
+					<div class="footer-right ">
+						<dl>
+							<dt><img src="../images/正_03.png " alt=" "></dt>
+							<dd>
+								<h2>支付方式</h2>
+								<span>在线支付</span><span>货到付款</span><span>发票说明</span>
+							</dd>
+						</dl>
+						<dl>
+							<dt><img src="../images/邮_03.png " alt=" "></dt>
+							<dd>
+								<h2>售后服务保障</h2><span>退换货说明</span><span>服务承诺</span></dd>
+						</dl>
+						<dl>
+							<dt><img src="../images/退_03.png " alt=" "></dt>
+							<dd>
+								<h2>物流配送</h2><span>合作快递</span><span>运费说明</span>
+								<span>配送说明</span></dd>
+						</dl>
+						<dl>
+							<dt><img src="../images/货_03.png " alt=" "></dt>
+							<dd>
+								<h2>会员服务</h2><span>级别和特权</span><span>积分政策</span></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../ajax.js"></script>
+<script type="text/javascript">
+//获取商品的ID
+var mian2 = document.getElementById("mian2");
+var cartBtn = document.getElementById("cartBtn");
+var shouye = document.getElementById("shouye");
+var id = location.href.split("?")[1].split("&")[0].split("=")[1];
+var uname = decodeURI(location.href.split("?")[1].split("&")[1].split("=")[1]);
+//点击添加购物车时计算购物车商品总条数
+if (localStorage.getItem(uname + "Goods")) {
+
+	var cartGoods = localStorage.getItem(uname + "Goods");
+	var cartGoodsJson = JSON.parse(cartGoods);
+	//
+	var sum = 0;
+	for (var i = 0; i < cartGoodsJson.length; i++) {
+		sum += cartGoodsJson[i].count;
+	}
+	cartGoodsNum.innerHTML = sum;
+}
+
+ajax({
+	method: "get",
+	url: "../php/detail.php",
+	data: {
+		xid: id
+	},
+	success: function(res) {
+	//console.log(res);
+	var json = JSON.parse(res);
+	var str = "";
+	str += `
+    <div class="content-left fl clearfix">
+	<div id="box">
+	<img src="${json.src1}" class="middle" width="400" height="400">
+	<div id="filter"></div>
+	</div>
+	<div id="max">
+		<img src="${json.src1}" alt="正在加载中..." id="maxImg">
+	</div>
+	
+	<ul>
+		<li><a href="##"><img src="${json.src1}" data-url="${json.src1}" class="small"></a></li>
+		<li><a href="##"><img src="${json.src2}" data-url="${json.src2}" class="small"></a></li>
+		<li><a href="##"><img src="${json.src3}" data-url="${json.src3}" class="small"></a></li>
+		<li><a href="##"><img src="${json.src4}" data-url="${json.src4}" class="small"></a></li>
+	</ul>
+	</div>
+
+
+<div class="content-right fr">
+	<div class="content-right-title">
+		<h1>${json.title}</h1>
+		<ul class="price">
+				<li>
+				<span class="price-left">销售价：</span>
+				<span class="red">
+					<span style="text-decoration: line-through;color: #ccc;">￥${json.oldprice}</span>
+				</span>
+				
+			</li>
+			<li>
+				<span class="price-left">促销价：</span>
+				<span class="red">
+					<span>￥</span>
+					<span>${json.nowprice}</span>
+				</span>
+				
+			</li>
+		</ul>
+		<ul class="information">
+                    <li><span>好评度：</span><span>${json.evaluate}分 </span></li>
+                  <li><span >商品品牌：</span><span s><a href="##" >${json.type}</a></span></li>
+                  <li><span >运费：</span><span>名鞋库会员满399包邮</span></li>
+            	</ul>
+            	<div class="score clearfix" >
+                    <h3>促销信息：</h3>
+                    <div class="star" id="star00">
+                    </div>
+                    <div class="scoretxt">
+                        <li><span style="color:red;">满400减40</span>&nbsp;<span style="color:red;">满800减80</span></li>
+                    </div>
+                  
+                </div>	 
+		<input type="submit" id="add_btn" value="">
+		<input type="submit" id="pay" value="">
+	</div>
+</div>`;
+		mian2.innerHTML = str;
+
+		shouye.setAttribute("href", "mingxieku.html?userName=" + uname);
+
+		var oSmall = document.querySelectorAll(".small");
+		var omiddle = document.querySelector(".middle");
+		var omaxImg = document.getElementById("maxImg");
+		var omax = document.getElementById("max");
+		var oFilter = document.getElementById("filter");
+		var oBox = document.getElementById("box");
+
+		//第一步给每一个元素添加事件
+		for (var i = 0; i < oSmall.length; i++) {
+			//当移入当前元素的时候
+			oSmall[i].onmouseover = function() {
+				//获取当前元素的自定义属性
+				var src = this.getAttribute("data-url");
+				//将获取到的src赋值给大图
+				omiddle.src = src;
+				omaxImg.src = src;
+			}
+		}
+		oBox.onmouseover = function() {
+			oFilter.style.display = "block";
+			omax.style.display = "block";
+		}
+		oBox.onmouseout = function() {
+			oFilter.style.display = "none";
+			omax.style.display = "none";
+
+		}
+		oBox.onmousemove = function(e) {
+			var e = e || event;
+			var l = e.pageX - oBox.offsetLeft - oFilter.offsetWidth / 2;
+			var t = e.pageY - oBox.offsetTop - oFilter.offsetHeight / 2;
+			var left = oBox.offsetWidth - oFilter.offsetWidth;
+			var top = oBox.offsetHeight - oFilter.offsetHeight;
+
+			l = l < 0 ? 0 : (l > left ? left : l);
+			t = t < 0 ? 0 : (t > top ? top : t);
+			oFilter.style.left = l + 'px';
+			oFilter.style.top = t + 'px';
+
+			var bigImgl = l * omaxImg.offsetWidth / oBox.offsetWidth;
+			var bigImgt = t * omaxImg.offsetHeight / oBox.offsetHeight;
+			omaxImg.style.left = -bigImgl + 'px';
+			omaxImg.style.top = -bigImgt + 'px';
+
+		}
+
+		ajax({
+			method: "get",
+			url: "../php/getUserName.php",
+			data: {
+				uname: uname
+			},
+			success: function(res) {
+				var str = "";
+				if (res == 0) {
+					str += `<a href="login.html">欢迎登录名鞋库</a>
+		  <a href="register.html">免费注册</a>`;
+
+				} else {
+					str += `<a href="#">欢迎${res}来到名鞋库</a>`;
+				}
+				dengru.innerHTML = str;
+
+				//未登入，不得查看购物车
+				var cartBtn = document.getElementById("cartBtn");
+				cartBtn.onclick = function() {
+					if (res == 0) {
+						alert("请登入");
+					} else {
+						//改变点击购物车的连接，把用户名传到购物车页面
+						cartBtn.setAttribute("href", "shopCart.html?userName=" + uname);
+					}
+				}
+
+				//添加到购物车
+				var cartGoodsNum = document.getElementById("cartGoodsNum");
+				var add_btn = document.getElementById("add_btn");
+				add_btn.onclick = function() {
+					if (res == 0) {
+						alert("请登入");
+					} else {
+						var bid = id;
+						//点击时，要保存当前商品的编号，商品的数量，每点击一次添加1条商品。
+						var obj = [{
+							"bid": bid,
+							"count": 1
+						}];
+
+						var objStr = JSON.stringify(obj);
+
+						//保存前要判断localStorage是否存在当前点击的这条商品，如果有，在原来商品数量上加1，如果没有，
+						//重新在原来localStorage基础上追加1个商品
+
+						//把需要的信息保存存在localStorage中
+						//需要明确到底是哪个用户的购物车信息，如何决定到底是哪个用户呢？通过用户名来决定
+						//不同的用户应该有不同的购物车信息(localStorage数据);
+						if (!localStorage.getItem(uname + "Goods")) {
+							//当localStorage里面没有任何购物车信息，需要添加何购物车信息
+
+							localStorage.setItem(uname + "Goods", objStr);
+						} else {
+							//当localStorage里面已经存在购物车信息，要判断当前点击的bid的这个商品在信息里是否存在 
+							//如果有，在原来商品数量上加1，如果没有，重新在原来localStorage基础上追加1个商品
+							var cartGoods = localStorage.getItem(uname + "Goods");
+							var cartGoodsJson = JSON.parse(cartGoods);
+							//一个控制器，用户判断原来的购物车信息中是否存在当前的这个bid商品
+							var flag = false; //false表示购物车信息中是没有当前的这个bid商品
+							for (var i = 0; i < cartGoodsJson.length; i++) {
+								if (cartGoodsJson[i].bid == bid) {
+									cartGoodsJson[i].count++;
+									flag = true; //true表示购物车信息中已经存在当前的这个bid商品
+								}
+							}
+							if (!flag) { //购物车信息中是没有当前的这个bid商品
+								//追加一条
+								var newBidInfo = {
+									"bid": bid,
+									"count": 1
+								};
+								cartGoodsJson.push(newBidInfo);
+							}
+							//添加到localStorage中
+							var cartGoodsJsonToStr = JSON.stringify(cartGoodsJson);
+							localStorage.setItem(uname + "Goods", cartGoodsJsonToStr);
+						}
+						//点击添加购物车时计算购物车商品总条数
+						if (localStorage.getItem(uname + "Goods")) {
+
+							var cartGoods = localStorage.getItem(uname + "Goods");
+							var cartGoodsJson = JSON.parse(cartGoods);
+							//
+							var sum = 0;
+							for (var i = 0; i < cartGoodsJson.length; i++) {
+								sum += cartGoodsJson[i].count;
+							}
+							cartGoodsNum.innerHTML = sum;
+						} else {
+							return;
+						}
+					}
+
+				}
+			}
+		});
+	}
+});
+</script>

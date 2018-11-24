@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="../css/base.css">
+		<link rel="stylesheet" href="../css/shopCart.css">
+	</head>
+
+	<body>
+		<div id="ming">
+			<div class="header">
+				<div class="header-top">
+					<div class="contanier">
+						<ul>
+							<li>我的名鞋库</li>
+							<li class="list1"><s></s><i></i>手机名鞋库</li>
+							<li>收藏名鞋库</li>
+							<li class="list2"><s></s><i></i>名鞋库客服</li>
+							<li class="list3"><s></s><i></i>400 116 2228</li>
+						</ul>
+						<div id="dengru">
+							<a href="login.html">欢迎登录名鞋库</a>
+							<a href="register.html">免费注册</a>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom">
+					<div class="contanier">
+						<h1>名鞋库</h1>
+						<img src="../images/质量保证.jpg" />
+					</div>
+				</div>
+			</div>
+			<div class="nav">
+				<div class="contanier">
+					<img src="../images/购物车导航.jpg" style="width: 1192px;" />
+
+				</div>
+			</div>
+			<div class="main">
+				<div class="contanier">
+					<ul class="title">
+						<li><input id="selectAll" type="checkbox" name="all" />&emsp;全选</li>
+						<li>商品</li>
+						<li>单价</li>
+						<li>数量</li>
+						<li>操作</li>
+						<li>总价</li>
+						<li>删除操作</li>
+					</ul>
+					<div class="line">
+						<hr />
+					</div>
+					<div class="carts">
+						<!--<ul class="title">
+				<li><input type="checkbox"/></li>
+				<li>
+					<p><img src="img/C语言.jpg"/></p>
+				</li>
+				<li><span>3</span></li>
+				<li><span>60</span></li>
+				<li><input type="button" value="-"/>&nbsp;|&nbsp;<input type="button" value="+"/></li>
+				<li><span>0</span></li>
+			</ul>-->
+					</div>
+					<div class="line">
+						<hr />
+					</div>
+
+					<ul id="bottom" class="title">
+						<li><input id="deslection" type="checkbox" name="quxiao" />&emsp;取消选择</li>
+						<li>商品总数：<span id="totalCount">0</span></li>
+						<li>需付金额：<span id="totalPrice">0</span></li>
+						<li><input type="button" value="" id="removeall" class="removeall" /></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer ">
+				<div class="container">
+					<img src="../images/购物车下栏.jpg" style="width: 1192px;" />
+
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../ajax.js"></script>
+<script src="../jquery.js"></script>
+<script type="text/javascript">
+	//显示商品信息的条件
+	//从localstorage.getItem(键名),
+	//哪个用户登录就拿哪个用户的购物车信息。
+	//得到当前登录用户的用户名
+	//bid count
+	//去数据库里合所有商品的信息。
+	//goods.json
+	var userName = decodeURI(location.search.split("=")[1]);
+	var carts = document.getElementsByClassName("carts")[0];
+	//从localStorage中拿出数据
+	if (localStorage.getItem(userName + "Goods")) {
+		var cartGoods = localStorage.getItem(userName + "Goods");
+		var cartGoodsArr = JSON.parse(cartGoods);
+	}
+	console.log(cartGoodsArr);
+	//从数据库中拿出数据
+	ajax({
+		method: "get",
+		url: "../php/carts.php",
+		success: function(res) {
+			var json = JSON.parse(res);
+			//所有商品拿到后，开始来和购物车保存的信息比较，通过购物车的bid与商品中的bid比较
+			//把对应的商品信息显示在页面。
+			var str = "";
+			for (var j = 0; j < cartGoodsArr.length; j++) {
+				for (var i = 0; i < json.length; i++) {
+					if (json[i].xid == cartGoodsArr[j].bid) {
+						str += `
+						<ul class="title"">
+							<li><input type="checkbox" name="s1"/></li>
+							<li><p><img src="${json[i].src1}"/></p></li>
+							<li>${json[i].nowprice}</li>
+							<li>${cartGoodsArr[j].count}</li>
+							<li><input type="button" value="-" class="minus"/>&nbsp;|&nbsp;<input type="button" value="+" class="plus"/></li>
+							<li class="allprice">${Number(cartGoodsArr[j].count)*Number(json[i].nowprice)}</li>
+							<li><a style="color:blue;cursor:pointer;" class="deleteone">删除</a></li>
+							</ul>`;
+					}
+				}
+			}
+			carts.innerHTML = str;
+
+			//每次生成ul，会有重复的class类名。则需要遍历的，用this去改变相应的值
+			//单击minus按钮，减数量
+			$(".minus").each(function(index, item) {
+				$(this).click(function() {
+					var num = $(this).parent().prev().html();
+					num--;
+					if (num < 1) {
+						$(item).parent().parent().remove();
+						cartGoodsArr.splice(index, 1);
+						var cartGoodsArrToStr = JSON.stringify(cartGoodsArr);
+						localStorage.setItem(userName + "Goods", cartGoodsArrToStr);
+					} else {
+						$(this).parent().prev().html(num);
+						$(this).parent().next().html(num * $(this).parent().prev().prev().html());
+						cartGoodsArr[index].count = num;
+						var cartGoodsArrToStr = JSON.stringify(cartGoodsArr);
+						localStorage.setItem(userName + "Goods", cartGoodsArrToStr);
+					}
+				})
+			});
+			//单击plus按钮，加数量	    
+			$(".plus").each(function(index, item) {
+				$(this).click(function() {
+					var num = $(this).parent().prev().html();
+					num++;
+					$(this).parent().prev().html(num);
+					$(this).parent().next().html(num * $(this).parent().prev().prev().html());
+					cartGoodsArr[index].count = num;
+					var cartGoodsArrToStr = JSON.stringify(cartGoodsArr);
+					localStorage.setItem(userName + "Goods", cartGoodsArrToStr);
+				})
+			});
+
+			//全选		    
+			$("input[name=all]").click(function() {
+				var sum1 = 0;
+				var sum2 = 0;
+				if ($(this).prop("checked")) {
+					$("input[name=s1]").prop("checked", $(this).prop("checked"));
+					$(this).prop("disabled", true);
+					$("input[name=quxiao]").prop("disabled", false);
+					$("input[name=s1]").each(function(index, item) {
+						sum1 += cartGoodsArr[index].count;
+						sum2 = parseInt(sum2) + parseInt($(".allprice").html());
+					})
+					$("#totalCount").html(sum1);
+					$("#totalPrice").html(sum2);
+				} else {
+					$("input[name=s1]").prop("checked", false);
+					$("#totalCount").html(0);
+					$("#totalPrice").html(0);
+				}
+				$("input[name=quxiao]").prop("checked", false);
+			})
+
+			//取消选择
+			$("input[name=quxiao]").click(function() {
+				$("input[name=s1]").prop("checked", false);
+				$("input[name=all]").prop("checked", false);
+				$("input[name=all]").prop("disabled", false);
+				$(this).prop("disabled", true);
+				$("#totalCount").html(0);
+				$("#totalPrice").html(0);
+			})
+
+			//单选
+			var flag = true; //代表所有的都被选中了
+			$("input[name=s1]").each(function(index, item) {
+				if (!$(item).prop("checked")) {
+					flag = false; //最少有一个没被选中           		
+					return;
+				}
+			})
+			$("input[name=s1]").click(function() {
+				if (flag) {
+					$("input[name=all]").prop("checked", true);
+				} else {
+					$("input[name=all]").prop("checked", false);
+					$("input[name=quxiao]").prop("checked", false);
+					$("input[name=all]").prop("disabled", false);
+					$("input[name=quxiao]").prop("disabled", false);
+				}
+
+			})
+
+			//商品总数和总额计算     
+			$("input[name=s1]").click(function() {
+				var sum1 = 0;
+				var sum2 = 0;
+				$("input[name=s1]").each(function(index, item) {
+					if ($(item).prop("checked")) {
+						sum1 += cartGoodsArr[index].count;
+						sum2 = parseInt(sum2) + parseInt($(item).parent().next().next().next().next().next().html());
+					}
+				})
+				$("#totalCount").html(sum1);
+				$("#totalPrice").html(sum2);
+			})
+
+			//删除所选商品
+			$(".deleteone").each(function(index,item){
+				$(this).click(function() {
+					$(this).parent().parent().remove();
+					cartGoodsArr.splice(index,1);
+					var cartGoodsArrToStr = JSON.stringify(cartGoodsArr);
+					localStorage.setItem(userName + "Goods", cartGoodsArrToStr);
+			    })
+			})
+			
+			ajax({
+		method: "get",
+		url: "../php/getUserName.php",
+		data: {
+			uname: userName
+		},
+		success: function(res) {
+			var str = "";
+			if (res == 0) {
+				str += `<a href="login.html">欢迎登录名鞋库</a>
+				  <a href="register.html">免费注册</a>`;
+
+			} else {
+				str += ` <a href="#">欢迎${res}来到名鞋库</a>`;
+			}
+			dengru.innerHTML = str;
+		}
+	});
+			
+		}
+	});
+</script>

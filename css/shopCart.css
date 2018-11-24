@@ -1,0 +1,195 @@
+#ming {
+width: 100%;
+height: 1780px;
+}
+
+.header {
+    height: 104px;
+    width: 100%;
+    background-color: blue
+}
+
+.header-top {
+    height: 26px;
+    width: 100%;
+    background-color: #eeeeee;
+}
+
+.header-top .contanier {
+    width: 1192px;
+    height: 26px;
+    margin: 0 auto;
+}
+
+.header-top a {
+    font-size: 14px;
+    color: red;
+    float: right;
+    line-height: 26px;
+    margin-right: 16px;
+}
+
+.header-top ul li {
+    font-size: 14px;
+    color: #646464;
+    float: left;
+    line-height: 26px;
+    height: 26px;
+    padding: 0 15px;
+    border-left: 1px solid #ccc;
+    text-align: center;
+}
+
+.header-top .contanier ul .list1 s {
+    display: inline-block;
+    margin-right: 3px;
+    background: url(../images/logo.png) -220px -63px;
+    width: 10px;
+    height: 14px;
+}
+
+.header-top .contanier ul .list2 s {
+    display: inline-block;
+    margin-right: 3px;
+    background: url(../images/logo.png) -9px -63px;
+    width: 17px;
+    height: 18px;
+}
+
+.header-top .contanier ul .list3 s {
+    display: inline-block;
+    margin-right: 3px;
+    background: url(../images/logo.png) -9px -97px;
+    width: 18px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.header-top .contanier ul li i {
+    height: 26px;
+    width: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header-top .contanier ul .list3 {
+    color: red;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.header-top ul {
+    float: right;
+}
+
+.header-bottom {
+    height: 78px;
+    width: 100%;
+    background-color: white;
+}
+
+.header-bottom .contanier {
+    width: 1192px;
+    height: 78px;
+    margin: 0 auto;
+}
+
+.header-bottom h1 {
+    text-indent: -10000px;
+    background-image: url(../images/logo1_03.png);
+    background-repeat: no-repeat;
+    width: 427px;
+    height: 63px;
+    margin-top: 8px;
+    float: left;
+}
+.nav {
+    height: 33px;
+    width: 100%;
+}
+
+.nav .contanier {
+    width: 1192px;
+    height: 33px;
+    margin: 0 auto;
+}
+.main {
+    width: 100%;
+}
+
+.main .contanier {
+    width: 1180px;
+	margin: 20px auto;
+	/*border: 3px solid #CCCCCC;*/
+}
+.main .contanier .title{
+	width: 1000px;
+	margin: 20px auto;
+	font-size: 20px;
+	font-weight: bold;
+}
+.main .contanier .title:after{
+	content: " ";
+	display: block;
+	clear: both;
+}
+.main .contanier .title li{
+	width: 130px;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+
+}
+.main .contanier .title li:last-child{
+	border-right: none;
+}
+.main .contanier .line{
+	width: 1000px;
+	margin: 20px auto;
+}
+.main .contanier .carts{
+	width: 1000px;
+	margin: 20px auto;
+}
+.main .contanier .carts .title{
+	height: 120px;
+	border: 1px solid #CCCCCC;
+}
+.main .contanier .carts .title li{
+	height: 120px;
+	line-height: 120px;
+	margin-bottom: 5px;
+}
+.main .contanier .carts .title li img{
+	height: 100px;
+}
+.main .contanier .carts .title li p{
+	padding: 5px 0;
+}
+.main .contanier .carts .title li input[type=button]{
+	width: 20px;
+	height: 20px;
+	opacity: 0.3;
+	cursor: pointer;
+}
+.main .contanier .carts .title li input[type=button]:hover{
+	background: orange;
+	opacity: 1;
+}
+#bottom li{
+	width: 250px;
+}
+.removeall{
+	background:url(../images/下单结算.jpg) ;
+	height: 36px;
+	width:171px;
+}
+.footer {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.footer .container {
+	width: 1192px;
+    margin: 0 auto;
+}

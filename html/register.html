@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			a {
+				text-decoration: none;
+				font-size: 12px;
+				color: #999;
+			}
+			
+			.w990 {
+				width: 990px;
+				margin: 0 auto;
+			}
+			
+			.head {
+				height: 73px;
+				padding: 20px 0 0;
+			}
+			
+			.logo {
+				float: left;
+				height: 63px;
+				padding-top: 10px;
+				background: url(../images/logo1_03.png) no-repeat ;
+				width: 427px;
+			}
+			
+			.c999 {
+				width: 790px;
+				height: 30px;
+				margin: 0 100px;
+				padding-right: 10px;
+				line-height: 30px;
+				text-align: right;
+			}
+			
+			.zhuce {
+				height: 440px;
+				margin: 0 105px;
+			}
+			
+			.yhzc {
+				width: 758px;
+				margin: 0 auto;
+				font-size: 16px;
+				font-family: microsoft yahei;
+				color: #888;
+				background: #f8f8f8;
+				padding: 4px 10px;
+				border-bottom: 1px solid #efefef;
+				text-shadow: 1px 1px #fff;
+				font-weight: 700;
+			}
+			
+			.form1 {
+				width: 700px;
+				height: 288px;
+				padding: 40px 0 80px 80px;
+				position: relative;
+			}
+			
+			form {
+				padding: 20px;
+			}
+			
+			label {
+				width: 100px;
+				display: inline-block;
+				font-size: 14px;
+				color: #333;
+			}
+			
+			input {
+				width: 220px;
+				height: 22px;
+				padding: 3px 5px;
+			}
+			
+			#checkbox {
+				height: 13px;
+				width: 13px;
+				margin: 5px;
+			}
+			
+			span {
+				font-size: 14px;
+				color: #333;
+			}
+			
+			form1 {
+				border-right: 1px dashed #ccc;
+			}
+			
+			#zhuce {
+				width: 77px;
+				height: 36px;
+				padding: 1px 6px;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+				background:linear-gradient(to bottom,#f14908,#a33408);
+				
+			}
+			#yzm{width: 80px;}
+			#span1{
+				position: absolute;
+				display: inline-block;
+				width:90px;
+			    height: 32px;
+			    margin-left: 40px;
+			    background:url(../images/yzm.jpg);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="w990">
+			<div class="head">
+				<span class="logo"></span>
+			</div>
+			<div class="zhuce">
+				<div class="yhzc">
+					名鞋库用户注册
+				</div>
+				<div class="form1">
+					<form method="post" action="../php/register.php" id="form">
+						<label for="uname">用户名：</label><input type="text" name="uname" id="uname" />
+						<span id="checkUname"></span>
+						<p></p>
+						<br />
+						<label for="upwd">密码：</label><input type="password" name="upwd" id="upwd" />
+						<span id="checkPwd"></span>
+						<p></p>
+						<br />
+						<label for="yzm">验证码：</label><input type="text" name="yanzhengma" id="yzm" /><span id="span1" style="text-align: center;font-size:20px;font:'bodoni mt';"></span> 
+						<a id="a1" href="" style="position: absolute;bottom: 210px;right: 250px;text-decoration: underline;">看不清，换一张</a><span id="yazerr"></span><br />
+						
+						<br>
+						<label></label><input type="checkbox" id="checkbox" checked="checked" /><span>我已阅读并同意<a>名鞋库会员注册协议</a></span><br/><br/>
+						<label></label><input type="submit" value="注册新用户" id="zhuce">
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../public.js"></script>
+<script src="../ajax.js"></script>
+<script type="text/javascript">
+	var checkUname=$id("checkUname");
+	var uname=$id("uname");
+	var checkPwd=$id("checkPwd");
+	var upwd=$id("upwd");
+	var yzm=$id("yzm");
+	var yazerr=$id("yazerr");
+	var form=$id("form");
+	var a1=$id("a1");
+	var span1=$id("span1");
+	span1.innerHTML=getYZM(6);
+	//控制表示是否提交
+	var flag1=false;//用户名不合法表示不可提交
+	var flag2=false;//密码不合法表示不可提交
+	var flag3=false;//验证码不合法表示不可提交
+	uname.onblur=function(){
+	ajax({
+		method:"get",
+		url:"../php/onlyUnameCheck.php",
+		data:{
+			uname:this.value,
+		},
+		success:function(res){
+			if(res==1){
+				flag1=false;
+				checkUname.innerHTML="已存在";
+				checkUname.style.color="red";
+			}else{
+				flag1=true;
+				checkUname.innerHTML="可用";
+				checkUname.style.color="limegreen";
+			}
+	//验证用户名		
+	var userValue=uname.value;
+	if(!(/^[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]*$/.test(userValue))){
+		checkUname.innerHTML="只能输入汉字数字字母，并且数字不能开头";
+		checkUname.style.color="red";
+		flag1=false;
+	}
+	if(userValue==""){
+		checkUname.innerHTML="用户名不能为空";
+		checkUname.style.color="red";
+		flag1=false;
+	}
+
+	}
+	 })
+}   
+    //验证密码
+	upwd.onblur=function(){
+	var userupwd=upwd.value;
+	if(userupwd==""){
+		checkPwd.innerHTML="密码不能为空";
+		checkPwd.style.color="red";
+		flag2=false;
+	}else if(userupwd.length<6){
+		checkPwd.innerHTML="密码至少6位";
+		checkPwd.style.color="red";
+		flag2=false;
+	}else{
+		checkPwd.innerHTML="可用";
+		checkPwd.style.color="limegreen";
+		flag2=true;
+	}	
+	}
+	//验证码验证
+	yzm.onblur=function(){
+		var yzmValue=yzm.value;
+		if(yzmValue.toLowerCase()!==span1.innerHTML.toLowerCase()){
+			yazerr.innerHTML="有误";
+			yazerr.style.color="red";
+			flag3=false;
+		}else{
+			yazerr.innerHTML="可用";
+			yazerr.style.color="limegreen";
+			flag3=true;
+		}
+	}
+	
+	form.onsubmit=function(){
+		return flag1&&flag2&&flag3;
+	}
+a1.onclick=function(){
+	span1.innerHTML=getYZM(6);
+}
+</script>
